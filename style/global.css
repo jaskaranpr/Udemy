@@ -1,0 +1,41 @@
+@import url('../assets/FontsFree-Net-SFProText-Regular.ttf');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    color:var(--primary-color)
+}
+:root{
+    --primary-color:#1c1d1f;
+    --faded-color:#3d3c0a;
+    --secondary-color:#808080;
+    --background-color:#fff;
+    --top-nav-bg:#98bfec;
+    --font-size:0.95rem;
+    --font-medium:1.2rem;
+    --font-large: 3.2rem;
+    --font-family-sf:'sf pro text', sans-serif;
+    --pri-font-weight:300;
+    --bold-font-weight:bold;
+    --large-padding:1rem;
+}
+.dark-theme{
+    --primary-color:#fff;
+    --faded-color:#3d3c0a;
+    --secondary-color:#808080;
+    --background-color:#1c1d1f;
+    --top-nav-bg:#98bfec;
+    --font-size:0.95rem;
+    --font-medium:1.2rem;
+    --font-large: 3.2rem;
+    --font-family-sf:'sf pro text', sans-serif;
+    --pri-font-weight:300;
+    --bold-font-weight:bold;
+    --large-padding:1rem;
+    background-color:#1C1D1F;
+}
+.dark-theme .icon{
+    filter:invert();
+}

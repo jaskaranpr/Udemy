@@ -5,11 +5,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://www.udemy.com/staticx/udemy/images/v8/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://www.udemy.com/staticx/udemy/images/v8/favicon-16x16.png" />
+    <meta name="title" content="Online Courses - Learn Anything, On Your Schedule | Udemy">
+    <link rel="stylesheet" href="style/global.css">
+    <link id="media-style" rel="stylesheet">
+
+    <title>Online Courses - Learn Anything, On Your Schedule | Udemy</title>
 </head>
 
 <body>
-    <h1>hello </h1>
+    <nav>
+
+    </nav>
+    <section></section>
+
 </body>
 
 </html>
+
+<script type="module">
+    import navbar from "./components/navbar.js"
+    import navMobile from "./components/navbar-mobile.js"
+    let nav = navbar()
+    function myFunction(x) {
+        if (x.matches) { 
+            document.getElementById("media-style").href = "style/navbar-mobile.css"
+            document.querySelector("nav").innerHTML = navMobile()
+            timer(document.querySelector(".timer"))
+        } else {
+            document.querySelector("nav").innerHTML = nav
+            document.getElementById("media-style").href = "style/navbar-desktop.css"
+            timer(document.querySelector(".timer"))
+        }
+    }
+    var x = window.matchMedia("(max-width: 1200px)")
+    myFunction(x)
+    x.addListener(myFunction)
+
+    import timer from "./scripts/timer.js"
+
+
+
+    //////////////////////////////////////////////timer
+
+
+    document.querySelector(".remove-sale").addEventListener("click", () => {
+        document.querySelector(".sale-nav").style.display = "none"
+    })
+
+
+    ////////
+    // change mode
+    document.querySelector(".mods").addEventListener("click", () => {
+        document.querySelector(".mods").classList.toggle("light-mode")
+        changeTheme()
+    })
+    function changeTheme() {
+        let mode = document.querySelector(".mods")
+        if (mode.classList.contains("light-mode")) {
+            document.querySelector("body").classList.add("dark-theme")
+            document.querySelector("#logo-img").src = "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg"
+        } else {
+            document.querySelector("#logo-img").src = "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
+            document.querySelector("body").classList.remove("dark-theme")
+
+        }
+    }
+    /////////////
+    
+
+////////
+
+</script>
+<script type="module"  src="scripts/search.js"></script>
+<script type="module"  src="scripts/cat-menu.js"></script>
