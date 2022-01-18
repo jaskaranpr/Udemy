@@ -22,7 +22,7 @@ const search = (q, f) => {
     }
 
     localStorage.setItem("pData", JSON.stringify(array));
-    location.href = "product.html";
+    location.href = "/courses";
   };
   getData();
 };

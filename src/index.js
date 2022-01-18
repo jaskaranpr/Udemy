@@ -1,16 +1,20 @@
 const express = require("express");
 const app = express();
-const path = require("path");
 
-app.use(express.static(path.join(__dirname, "../views")));
+const mainController = require("./controllers/main.controller");
+const courseController = require("./controllers/course.controller");
+const cartController = require("./controllers/cart.controller");
+const loginController = require("./controllers/login.controller");
+const signupController = require("./controllers/signup.controller");
 
-app.get("/", (req, res) => {
-  try {
-    res.status(200).sendFile(path.join(__dirname, "..views/index.html"));
-  } catch (err) {
-    console.log(err);
-  }
-});
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+app.use("/", mainController);
+app.use("/courses", courseController);
+app.use("/cart", cartController);
+app.use("/login", loginController);
+app.use("/signup", signupController);
 
 app.listen(3000, () => {
   console.log("done");

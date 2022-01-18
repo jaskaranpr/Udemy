@@ -15,12 +15,12 @@ const navbar = () => {
 </div>
 <div class="main-nav">
     <div class="logo">
-        <a href="index.html"> <img id="logo-img" src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
+        <a href="/"> <img id="logo-img" src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="" srcset=""></a>
     </div>
     <div class="categories">
-        <a href="#" id="categories">Categories</a>
-        <div class="cat-menu ">
+        <a href="" id="categories">Categories</a>
+        <div class="cat-menu">
             <div class="first-cat"></div>
             <div class="second-cat"></div>
             <div class="third-cat"></div>
@@ -42,12 +42,12 @@ const navbar = () => {
         <a href="#">Teach on Udemy</a>
     </div>
     <div class="cart">
-        <a href="cart.html"> <img class="icon" src="assets/shopping-cart.png" alt=""> </a>
+        <a href="/cart"> <img class="icon" src="assets/shopping-cart.png" alt=""> </a>
         <span id="cart-count">${cart.length || 0}</span>
     </div>
     <div class="sign-log">
-        <a href="login.html"> <button> Log in </button></a>
-        <a href="signup.html"> <button> Sign up </button></a>
+        <a href="/login"> <button> Log in </button></a>
+        <a href="/signup"> <button> Sign up </button></a>
         <div class="user"></div>
     </div>
     <div class="dark-mode">
