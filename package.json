@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon src/index"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/jaskaranpr/Udemy/issues"
   },
-  "homepage": "https://github.com/jaskaranpr/Udemy#readme"
+  "homepage": "https://github.com/jaskaranpr/Udemy#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "fs": "0.0.1-security",
+    "mongoose": "^6.1.7"
+  }
 }
