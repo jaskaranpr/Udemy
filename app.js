@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 
-const mainController = require("./controllers/main.controller");
-const courseController = require("./controllers/course.controller");
-const cartController = require("./controllers/cart.controller");
-const loginController = require("./controllers/login.controller");
-const signupController = require("./controllers/signup.controller");
+const mainController = require("./src/controllers/main.controller");
+const courseController = require("./src/controllers/course.controller");
+const cartController = require("./src/controllers/cart.controller");
+const loginController = require("./src/controllers/login.controller");
+const signupController = require("./src/controllers/signup.controller");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
