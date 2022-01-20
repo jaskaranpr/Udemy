@@ -452,13 +452,22 @@
     "<%})%>"
 
     import navbar from "./components/navbar.js"
-    import timer from "./scripts/timer.js"
+    // import timer from "./scripts/timer.js"
     import footer from "./components/footer.js"
     import cousreList from "./components/courseList.js"
     document.querySelector("nav").innerHTML = navbar()
     document.querySelector("footer").innerHTML = footer()
     //////////////////////////////////////////////timer
-    timer(document.querySelector(".timer"))
+    // timer()
+    // timer()
+    const timer = async () => {
+        let res = await fetch("http://localhost:3000/timer");
+        let tir = await res.json();
+        document.querySelector(".timer").innerHTML = tir.time
+        setInterval(timer, 1500)
+    };
+    timer()
+
     document.querySelector(".remove-sale").addEventListener("click", () => {
         document.querySelector(".sale-nav").style.display = "none"
     })
