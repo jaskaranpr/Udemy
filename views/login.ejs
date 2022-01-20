@@ -15,14 +15,14 @@
     <h3>Log In to Your Udemy Account!</h3>
     <hr />
   </div>
-  <form>
+  <form action="/login" method="post">
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="text" placeholder="Email" id="email" />
+      <input class="input-field" type="email" placeholder="Email" id="email" />
     </div>
     <div class="input-container">
       <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="Password" id="pass" />
+      <input class="input-field" type="password" placeholder="Password" id="password" />
     </div>
     <button type="button" onclick="login()" class="btn">Log In</button>
   </form>
