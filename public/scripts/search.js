@@ -649,35 +649,51 @@ document.getElementById("search").addEventListener("keyup", (e) => {
   }
 });
 
-let i = 499;
-
+let arr = JSON.parse(localStorage.getItem("youtube"));
+console.log(arr);
+let i = 0;
 let c = setInterval(() => {
-  if (i == search.length - 1) {
+  if (i == arr.length-1) {
     clear();
   }
-  getData(search[i], i);
+  postdata(arr[i]);
   i++;
-}, 3000);
+}, 1000);
 
 function clear() {
   clearInterval(c);
 }
-async function getData(q) {
+let newArr = [];
+async function postdata(data) {
+  console.log(data.q);
   try {
-    console.log(i);
-    let api = "AIzaSyBeczxFA-dbjD3bFi3tmebD71mNKE4AUfc";
-    let res = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?q=${q}&type=video&regionCode=US&key=${api}&maxResults=10&part=snippet`
-    );
-    let data = await res.json();
-    let arr = JSON.parse(localStorage.getItem("youtube")) || [];
-    arr.push({ data, q });
-    localStorage.setItem("youtube", JSON.stringify(arr));
+    let res = await fetch(`http://localhost:3000/tags?name=${data.q}`);
+    let r = await res.json();
+    if (r) {
+      data.id = data.q;
+      newArr.push(data);
+    }
   } catch (err) {
-    clearInterval(c);
-    console.log(err, i);
+    console.log(err);
   }
 }
+
+// async function getData(q) {
+//   try {
+//     console.log(i);
+//     let api = "AIzaSyBeczxFA-dbjD3bFi3tmebD71mNKE4AUfc";
+//     let res = await fetch(
+//       `https://youtube.googleapis.com/youtube/v3/search?q=${q}&type=video&regionCode=US&key=${api}&maxResults=10&part=snippet`
+//     );
+//     let data = await res.json();
+//     let arr = JSON.parse(localStorage.getItem("youtube")) || [];
+//     arr.push({ data, q });
+//     localStorage.setItem("youtube", JSON.stringify(arr));
+//   } catch (err) {
+//     clearInterval(c);
+//     console.log(err, i);
+//   }
+// }
 // let arrr = [];
 // async function postdata(data, q) {
 //   let res = await fetch(`http://localhost:3000/tags?name=${q}`);
