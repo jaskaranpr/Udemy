@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const courseSchema = new Schema(
   {
     title: { type: String, required: true },
-    created_by: { type: String, required: true },
+    created_by: { type: Schema.Types.ObjectId, ref: "user", required: true },
     price: { type: Number, required: true },
     thumbnails: { type: String, required: true },
     creater_name: { type: String, required: true },
@@ -13,7 +13,7 @@ const courseSchema = new Schema(
     description: { type: String, required: true },
     level: { type: String, required: true },
     video: { type: String, required: true },
-    tags: { type: Schema.Types.ObjectId, required: true },
+    tag: { type: Schema.Types.ObjectId, ref: "tag", required: true },
     delete: { type: Boolean, required: true, default: false },
   },
   {

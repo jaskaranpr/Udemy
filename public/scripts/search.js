@@ -649,35 +649,6 @@ document.getElementById("search").addEventListener("keyup", (e) => {
   }
 });
 
-let arr = JSON.parse(localStorage.getItem("youtube"));
-console.log(arr);
-let i = 0;
-let c = setInterval(() => {
-  if (i == arr.length-1) {
-    clear();
-  }
-  postdata(arr[i]);
-  i++;
-}, 1000);
-
-function clear() {
-  clearInterval(c);
-}
-let newArr = [];
-async function postdata(data) {
-  console.log(data.q);
-  try {
-    let res = await fetch(`http://localhost:3000/tags?name=${data.q}`);
-    let r = await res.json();
-    if (r) {
-      data.id = data.q;
-      newArr.push(data);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 // async function getData(q) {
 //   try {
 //     console.log(i);
@@ -699,23 +670,7 @@ async function postdata(data) {
 //   let res = await fetch(`http://localhost:3000/tags?name=${q}`);
 //   let r = await res.json();
 //   // console.log(r)
-//   let senddata = {};
-//   let levels = ["all levels", "beginner", "intermediate", "expert"];
-//   data.forEach((d) => {
-//     senddata.title = d.snippet.title;
-//     senddata.created_by = "Jaskaran";
-//     senddata.price = 525;
-//     senddata.thumbnails = d.snippet.thumbnails.high.url;
-//     senddata.creater_name = d.snippet.channelTitle;
-//     senddata.original_price = 3449;
-//     senddata.duration = Math.floor(Math.random() * (6 - 1) + 1);
-//     senddata.lecture = Math.floor(Math.random() * (100 - 10) + 10);
-//     senddata.description = d.snippet.description;
-//     senddata.level = levels[Math.floor(Math.random() * 3)];
-//     senddata.video = d.id.videoId;
-//     senddata.tag = r._id;
-//     arrr.push(senddata);
-//   });
+//
 // }
 // console.log(arrr);
 
