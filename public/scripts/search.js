@@ -648,3 +648,60 @@ document.getElementById("search").addEventListener("keyup", (e) => {
     searchP(document.getElementById("search").value);
   }
 });
+
+let i = 0;
+
+function loop(i) {
+  getData(search[i], i);
+  if (i == search.length) {
+    return;
+  }
+   setInterval(() => loop(i++), 1000);
+}
+
+
+async function getData(q) {
+  console.log(i);
+  let api = "AIzaSyAIKpVgXIrhmWyThxs3ZIcf4Q9NjLY-0Jg";
+  let res = await fetch(
+    `https://youtube.googleapis.com/youtube/v3/search?q=${q}&type=video&regionCode=US&key=${api}&maxResults=20&part=snippet`
+  );
+  let data = await res.json();
+  postdata(data.items, q);
+  console.log(i);
+}
+let arrr = [];
+async function postdata(data, q) {
+  let res = await fetch(`http://localhost:3000/tags?name=${q}`);
+  let r = await res.json();
+  // console.log(r)
+  let senddata = {};
+  let levels = ["all levels", "beginner", "intermediate", "expert"];
+  data.forEach((d) => {
+    senddata.title = d.snippet.title;
+    senddata.created_by = "Jaskaran";
+    senddata.price = 525;
+    senddata.thumbnails = d.snippet.thumbnails.high.url;
+    senddata.creater_name = d.snippet.channelTitle;
+    senddata.original_price = 3449;
+    senddata.duration = Math.floor(Math.random() * (6 - 1) + 1);
+    senddata.lecture = Math.floor(Math.random() * (100 - 10) + 10);
+    senddata.description = d.snippet.description;
+    senddata.level = levels[Math.floor(Math.random() * 3)];
+    senddata.video = d.id.videoId;
+    senddata.tag = r._id;
+    arrr.push(senddata);
+  });
+}
+console.log(arrr);
+
+// async function postOnDB(data) {
+//   const response = await fetch("http://localhost:3000/coursedata", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(data),
+//   });
+//   console.log(response.json());
+// }

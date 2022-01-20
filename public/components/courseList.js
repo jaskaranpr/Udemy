@@ -11,6 +11,11 @@ const courseList = (data, slide) => {
     `;
       let hoverDiv = document.createElement("div");
       hoverDiv.classList.add("hover-div2");
+      if (i == 4 || i == 9) {
+        hoverDiv.classList.add("hover-div2-left");
+      } else {
+        hoverDiv.classList.add("hover-div2-right");
+      }
       hoverDiv.style.display = "none";
       let h4 = document.createElement("h4");
       let p1 = document.createElement("p");
