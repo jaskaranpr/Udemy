@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 
-let bodyParser = require("body-parser");
 const { register, login } = require("./src/controllers/auth.controller");
 const mainController = require("./src/controllers/main.controller");
 const courseController = require("./src/controllers/course.controller");
@@ -12,8 +11,11 @@ const maincatController = require("./src/controllers/mainCat.controller");
 const subcatController = require("./src/controllers/subCat.controller");
 const tagsController = require("./src/controllers/tag.controller");
 const courseData = require("./src/controllers/course.data.controller");
+const instructorController = require("./src/controllers/instructor.controller");
+const searchController = require("./src/controllers/search.controller");
 
 app.use(express.json());
+let bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -31,6 +33,8 @@ app.use("/maincategory", maincatController);
 app.use("/subcategory", subcatController);
 app.use("/tags", tagsController);
 app.use("/coursedata", courseData);
+app.use("/instructor", instructorController);
+app.use("/search", searchController);
 
 app.listen(3000, async () => {
   await require("./src/configs/dp")();
