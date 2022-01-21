@@ -38,5 +38,5 @@ app.use("/search", searchController);
 
 app.listen(3000, async () => {
   await require("./src/configs/dp")();
-  console.log("done");
+  console.log("listning on port 3000");
 });
