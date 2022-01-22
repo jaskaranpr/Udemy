@@ -1,12 +1,12 @@
 const courseList = (data, slide) => {
-  data.map(({ id, snippet }, i) => {
+  data.map((data, i) => {
     if (i < 10) {
       let d = document.createElement("div");
       d.classList.add("slide-div");
       d.innerHTML = ` <div class="img-div"> <img
-        src="${snippet.thumbnails.high.url}" alt=""></div>
-    <h3>${snippet.title}</h3>
-    <p>${snippet.channelTitle}</p>
+        src="${data.thumbnails}" alt=""></div>
+    <h3>${data.title}</h3>
+    <p>${data.creater_name}</p>
     <h4>₹525 <span class="x3">₹3,499</span></h4>
     `;
       let hoverDiv = document.createElement("div");
@@ -22,9 +22,9 @@ const courseList = (data, slide) => {
       let p2 = document.createElement("p");
       let p3 = document.createElement("p");
       h4.innerHTML = `What you’ll learn`;
-      p1.innerHTML = `<img class="icon tick2" src="assets/tick.png"> Top quelity Course for all levels`;
-      p2.innerHTML = `<img class="icon tick2" src="assets/tick.png"> Learn how your listening dictates your reality and`;
-      p3.innerHTML = `<img class="icon tick2" src="assets/tick.png"> Use de-facto standard routing solution for React`;
+      p1.innerHTML = `<img class="icon tick2" src="/assets/tick.png"> Top quelity Course for all levels`;
+      p2.innerHTML = `<img class="icon tick2" src="/assets/tick.png"> Learn how your listening dictates your reality and`;
+      p3.innerHTML = `<img class="icon tick2" src="/assets/tick.png"> Use de-facto standard routing solution for React`;
       let cartDiv = document.createElement("div");
       cartDiv.classList.add("cart-div2");
       let cart = document.createElement("button");

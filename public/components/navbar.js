@@ -1,5 +1,22 @@
 const navbar = () => {
-  let cart = JSON.parse(localStorage.getItem("courseCart")) || [];
+  let cartCount = 0;
+  async function length() {
+    let token = JSON.parse(localStorage.getItem("token"));
+    if (token && token !== "") {
+      let res = await fetch("/cart/length", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      let data = await res.json();
+      localStorage.setItem("countCart", JSON.stringify(data));
+    } else {
+      localStorage.setItem("countCart", JSON.stringify({ length: 0 }));
+    }
+  }
+  length();
+  cartCount = JSON.parse(localStorage.getItem("countCart")).length;
   return `<div class="sale-nav">
     <div class="sale-contant">
         <div class="sale-info">
@@ -9,7 +26,7 @@ const navbar = () => {
             <h1 class="timer bold-info"></h1>
         </div>
         <div class="remove-sale">
-            <img width="17px" src="assets/cross.png" alt="" srcset="">
+            <img width="17px" src="/assets/cross.png" alt="" srcset="">
         </div>
     </div>
 </div>
@@ -27,7 +44,7 @@ const navbar = () => {
         </div>
     </div>
     <div class="search">
-        <div> <img class="icon" src="assets/search.png" alt="">
+        <div> <img class="icon" src="/assets/search.png" alt="">
             <input id="search" type="search" placeholder="search">
 
         </div>
@@ -39,21 +56,21 @@ const navbar = () => {
         <a href="#">Udemy Business</a>
     </div>
     <div class="teach-on">
-        <a href="#">Teach on Udemy</a>
+        <a href="/instructor">Teach on Udemy</a>
     </div>
     <div class="cart">
-        <a href="/cart"> <img class="icon" src="assets/shopping-cart.png" alt=""> </a>
-        <span id="cart-count">${cart.length || 0}</span>
+        <a href="/cart"> <img class="icon" src="/assets/shopping-cart.png" alt=""> </a>
+        <span id="cart-count">${cartCount}</span>
     </div>
     <div class="sign-log">
         <a href="/login"> <button> Log in </button></a>
         <a href="/signup"> <button> Sign up </button></a>
-        <div class="user"></div>
+        <div class="user"><img src="/assets/no-user.jpg"></div>
     </div>
     <div class="dark-mode">
         <div class="mods">
-            <img src="assets/night.png" alt="" srcset="">
-            <img src="assets/light.png" alt="" srcset="">
+            <img src="/assets/night.png" alt="" srcset="">
+            <img src="/assets/light.png" alt="" srcset="">
         </div>
     </div>
 </div>`;

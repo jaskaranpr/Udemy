@@ -463,7 +463,6 @@
         document.querySelector(".sale-nav").style.display = "none"
     })
 
-
     ////////
     // change mode
     if (JSON.parse(localStorage.getItem("theme")) == "dark") {
@@ -493,8 +492,8 @@
     }
     /////////////
     // navbar end
-    let login = JSON.parse(localStorage.getItem("log"))
-    if (login.log == true) {
+    let login = JSON.parse(localStorage.getItem("token"))
+    if (login) {
         document.querySelector(".sign-log").classList.add("loged")
         document.querySelector(".user").textContent = login.user[0]
     }

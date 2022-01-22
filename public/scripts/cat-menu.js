@@ -1432,21 +1432,6 @@ const categories = [
     ],
   },
 ];
-// let arr = [];
-// for (let i = 0; i < categories.length; i++) {
-//   arr.push(categories[i].cat1);
-//   if (categories[i].sub1) {
-//     for (let j = 0; j < categories[i].sub1.length; j++) {
-//       arr.push(categories[i].sub1[j].cat1);
-//       if (categories[i].sub1[j].sub1) {
-//         for (let k = 0; k < categories[i].sub1[j].sub1.length; k++) {
-//           arr.push(categories[i].sub1[j].sub1[k]);
-//         }
-//       }
-//     }
-//   }
-// }
-import search from "./searchProd.js";
 let fCat = document.querySelector(".first-cat");
 let sCat = document.querySelector(".second-cat");
 let tCat = document.querySelector(".third-cat");
@@ -1463,14 +1448,14 @@ function mapCat() {
       let next = document.createElement("img");
       next.classList.add("next");
       next.classList.add("icon");
-      next.src = "assets/next.png";
+      next.src = "/assets/next.png";
       d1.append(first, next);
       fCat.append(d1);
     }
     // }
     first.addEventListener("click", () => {
       localStorage.setItem("catData", JSON.stringify(main.sub1));
-      search(main.cat1);
+      location.href = `/courses/${main.cat1.toLowerCase()}`;
     });
     first.addEventListener("mouseenter", () => {
       first.classList.add("blue");
@@ -1483,12 +1468,12 @@ function mapCat() {
         let next = document.createElement("img");
         next.classList.add("next");
         next.classList.add("icon");
-        next.src = "assets/next.png";
+        next.src = "/assets/next.png";
         d2.append(second, next);
         sCat.append(d2);
         second.addEventListener("click", () => {
           localStorage.setItem("catData", JSON.stringify(main.sub1));
-          search(sec.cat1);
+          location.href = `/courses/${main.cat1.toLowerCase()}/${sec.cat1.toLowerCase()}`;
         });
         second.addEventListener("mouseenter", () => {
           second.classList.add("blue");
@@ -1502,7 +1487,7 @@ function mapCat() {
             tCat.append(d3);
             third.addEventListener("click", () => {
               localStorage.setItem("catData", JSON.stringify(main.sub1));
-              search(thi);
+              location.href = `/courses/${main.cat1.toLowerCase()}/${sec.cat1.toLowerCase()}/${thi.toLowerCase()}`;
             });
           });
         });
@@ -1531,7 +1516,3 @@ catToggle.onclick = mapCat();
 document.querySelector(".cat-menu").addEventListener("mouseenter", () => {
   document.querySelector(".cat-menu").classList.add("cat-active");
 });
-
-
-
-

@@ -15,16 +15,16 @@
     <h3>Log In to Your Udemy Account!</h3>
     <hr />
   </div>
-  <form action="/login" method="post">
+  <form action="/login" method="post" id="form">
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="email" placeholder="Email" id="email" />
+      <input class="input-field" type="email" name="email" placeholder="Email" id="email" />
     </div>
     <div class="input-container">
       <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="Password" id="password" />
+      <input class="input-field" type="password" name="password" placeholder="Password" id="password" />
     </div>
-    <button type="button" onclick="login()" class="btn">Log In</button>
+    <input type="submit" class="btn"></input>
   </form>
   <div id="goto">
     <p>Don't have an account? <a href="/signup">Sign Up</a></p>
@@ -33,28 +33,14 @@
 
 </html>
 <script>
-  let users = JSON.parse(localStorage.getItem("newId")) || [];
-
-  function login() {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("pass").value;
-
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].emailaddress == email && users[i].password == password) {
-        alert("Successfull");
-        let obj = {
-          log: true,
-          user: users[i].emailaddress,
-        }
-        localStorage.setItem("log", JSON.stringify(obj))
-        location.href = "index.html"
-      } else if (
-        users[i].emailaddress != email ||
-        users[i].password != password
-      ) {
-        // alert("Invalid Credential");
-      }
-    }
-  }
-
+  document.querySelector("#form").addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let res = await fetch(event.target.action, {
+      method: 'POST',
+      body: new URLSearchParams(new FormData(event.target))
+    })
+    let data = await res.json()
+    localStorage.setItem("token", JSON.stringify(data.token))
+    location.href = "/"
+  });
 </script>

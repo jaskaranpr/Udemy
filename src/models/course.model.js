@@ -13,8 +13,10 @@ const courseSchema = new Schema(
     description: { type: String, required: true },
     level: { type: String, required: true },
     video: { type: String, required: true },
-    tag: { type: Schema.Types.ObjectId, ref: "tag", required: true },
+    tag: { type: String, ref: "tag", required: true },
     delete: { type: Boolean, required: true, default: false },
+    comment: [{ type: Schema.Types.ObjectId, ref: "comment", required: false }],
+    category: { type: String, required: false },
   },
   {
     versionKey: false,

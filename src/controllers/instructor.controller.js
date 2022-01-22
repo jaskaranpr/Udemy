@@ -2,6 +2,14 @@ const express = require("express");
 
 const router = express.Router();
 
+router.get("", (req, res) => {
+  try {
+    res.render("becomeinstructor");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.get("/create/1", (req, res) => {
   try {
     res.render("upload1");

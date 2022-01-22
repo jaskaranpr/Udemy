@@ -4,7 +4,10 @@ const router = express.Router();
 
 const Tag = require("../models/tags.model");
 
-router.get("", async (req, res) => {
+const authenticate = require("../middlewares/authenticate");
+
+router.get("", authenticate, async (req, res) => {
+  console.log(req.user);
   try {
     let name = req.query.name;
     let tag;

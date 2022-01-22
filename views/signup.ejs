@@ -15,22 +15,22 @@
     <h2>Sign Up and Start Learning!</h2>
     <hr />
   </div>
-  <form>
+  <form action="/register" method="post" id="form">
     <div class="input-container">
       <i class="fa fa-user icon"></i>
-      <input class="input-field" type="text" placeholder="Full Name" id="name" />
+      <input class="input-field" type="text" placeholder="Full Name" name="fname" id="name" />
     </div>
 
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="text" placeholder="Email" id="email" />
+      <input class="input-field" type="text" placeholder="Email" name="email" id="email" />
     </div>
 
     <div class="input-container">
       <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="Password" id="pass" />
+      <input class="input-field" type="password" placeholder="Password" name="password" id="pass" />
     </div>
-    <button type="button" onclick="signup()" class="btn">Sign Up</button>
+    <input type="submit" class="btn"></input>
   </form>
   <div id="goto">
     <p>Already have an account? <a href="/login">Login</a></p>
@@ -39,23 +39,12 @@
 
 </html>
 <script>
-  var newuser = JSON.parse(localStorage.getItem("newId")) || [];
-  function signup() {
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("pass").value;
-
-    let data = {
-      username: name,
-      emailaddress: email,
-      password: password,
-    };
-
-    newuser.push(data);
-    localStorage.setItem("newId", JSON.stringify(newuser));
-
-    setTimeout(function () {
-      window.location.href = "/login";
-    }, 3000);
-  }
+  document.querySelector("#form").addEventListener('submit', async (event) => {
+    event.preventDefault();
+     await fetch(event.target.action, {
+      method: 'POST',
+      body: new URLSearchParams(new FormData(event.target))
+    })
+    location.href = "/login"
+  });
 </script>
