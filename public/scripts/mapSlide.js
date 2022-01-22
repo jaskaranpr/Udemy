@@ -30,7 +30,6 @@ let keywords = [
 for (let i = 0; i < 11; i++) {
   let data = JSON.parse(localStorage.getItem(keywords[i])) || null;
   if (data !== {} && data !== null) {
-    console.log(data);
     cousreList(data, document.querySelector(arr[i]));
   } else {
     setTimeout(async () => {

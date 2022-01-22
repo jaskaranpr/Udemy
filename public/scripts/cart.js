@@ -1,18 +1,26 @@
 let contain = document.getElementById("container");
-let data = JSON.parse(localStorage.getItem("courseCart")) || [];
-
-let courses_zero = document.getElementById("courses_zero");
-courses_zero.innerHTML = `${data.length} Courses in Cart`;
-
-var total_sum = 0;
-var disc_sum = 0;
-if (data.length !== 0) {
-  for (let i = 0; i < data.length; i++) {
-    total_sum += +data[i].price;
-    disc_sum += data[i].firstprice;
+let data;
+async function length() {
+  let token = JSON.parse(localStorage.getItem("token"));
+  if (token && token !== "") {
+    let res = await fetch("/cart/data", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    let data = await res.json();
+    shoppingCart(data);
+  } else {
+    alert("error");
   }
 }
-shoppingCart(data);
+length();
+
+let courses_zero = document.getElementById("courses_zero");
+courses_zero.innerHTML = `${
+  JSON.parse(localStorage.getItem("countCart")).length || 0
+} Courses in Cart`;
 
 function shoppingCart(data) {
   if (data.length !== 0) {
@@ -36,13 +44,13 @@ function shoppingCart(data) {
     cart_price_totla.setAttribute("id", "cart_price_totla");
     let cart_price_amount = document.createElement("h1");
     cart_price_amount.innerHTML = `₹ ${
-      JSON.parse(localStorage.getItem("courseCart")).length * 525
+      JSON.parse(localStorage.getItem("countCart")).length * 525
     }`;
     cart_price_amount.setAttribute("id", "cart_price_amount");
 
     let cart_price_off = document.createElement("p");
     cart_price_off.innerHTML = ` ₹ ${
-      JSON.parse(localStorage.getItem("courseCart")).length * 3499
+      JSON.parse(localStorage.getItem("countCart")).length * 3499
     } `;
     cart_price_off.setAttribute("id", "cart_price_oof");
     let Div_for_button = document.createElement("div");
@@ -77,24 +85,24 @@ function shoppingCart(data) {
       div_for_ap.setAttribute("id", "div_for_ap");
       card_right.append(div_for_ap);
       let image1 = document.createElement("img");
-      image1.src = d.snippet.thumbnails.high.url;
+      image1.src = d.thumbnails;
       image1.setAttribute("class", "image1");
 
       let div_coursedetails = document.createElement("div");
       div_coursedetails.setAttribute("class", "div_coursedetails");
       let title_h2 = document.createElement("h2");
       title_h2.setAttribute("class", "title_h2");
-      title_h2.innerHTML = `${d.snippet.title}`;
+      title_h2.innerHTML = `${d.title}`;
 
       author_h2 = document.createElement("h6");
       author_h2.setAttribute("class", "author_h2");
-      author_h2.innerHTML = `${d.snippet.channelTitle}`;
+      author_h2.innerHTML = `${d.creater_name}`;
       let hours_total_lecutres = document.createElement("div");
       hours_total_lecutres.setAttribute("class", "hours_total_lecutres");
       let total_hours = document.createElement("p");
-      total_hours.innerHTML = `${d.snippet.publishedAt} Hours `;
+      total_hours.innerHTML = `${d.duration} Hours `;
       let time_hours = document.createElement("p");
-      time_hours.innerHTML = ` • ${d.snippet.channelTitle}`;
+      time_hours.innerHTML = ` • ${d.creater_name}`;
       let levels = document.createElement("p");
       levels.innerHTML = `• All Levels`;
 
@@ -136,9 +144,21 @@ function shoppingCart(data) {
     });
   }
 }
-function removeCart(i) {
-  data = JSON.parse(localStorage.getItem("courseCart"));
-  data.splice(i, 1);
-  localStorage.setItem("courseCart", JSON.stringify(data));
-  shoppingCart(data);
+async function removeCart(i) {
+  try {
+    let token = JSON.parse(localStorage.getItem("token"));
+    if (token && token !== "") {
+      await fetch("/cart/remove", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({ i }),
+      });
+    }
+    location.href = "/cart";
+  } catch (err) {
+    console.log(err);
+  }
 }

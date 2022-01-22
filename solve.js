@@ -14,20 +14,17 @@ function checkPalidrom(str) {
 }
 
 var longestPalindrome = function (s) {
+  let ans = [];
   let big = 0;
-  let ans = "";
   for (let i = 0; i < s.length; i++) {
-    for (let j = i; j <= s.length; j++) {
-      let str = "";
-      for (let k = i; k < j; k++) {
-        str += s[k];
-      }
+    for (let j = i + 1; j <= s.length; j++) {
+      let str = s.split("").slice(i, j);
       if (checkPalidrom(str) && str.length > big) {
-        ans = str;
         big = str.length;
+        ans = str;
       }
     }
   }
-  console.log(ans)
+  return ans.join("");
 };
 longestPalindrome(s);

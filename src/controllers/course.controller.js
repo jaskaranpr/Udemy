@@ -7,9 +7,34 @@ const Course = require("../models/course.model");
 
 const router = express.Router();
 
-router.get("", (req, res) => {
+router.get("", async (req, res) => {
   try {
-    res.render("product");
+    const q = req.query.q || false;
+    const page = +req.query.page || 1;
+    const size = +req.query.limit || 10;
+    const total = (page - 1) * size;
+    let courses;
+    let length;
+    if (q) {
+      const tag = await Tag.findOne({ name: q }).lean().exec();
+      courses = await Course.find({ tag: tag._id })
+        .lean()
+        .limit(size)
+        .skip(total)
+        .exec();
+      length = await Course.find({ tag: tag._id }).count();
+    } else {
+      courses = await Course.find().lean().limit(size).skip(total).exec();
+      length = await Course.count();
+    }
+
+    res.render("product", {
+      data: courses,
+      length: length,
+      main: "courses",
+      sub: null,
+      tag: null,
+    });
   } catch (err) {
     console.log(err);
   }
@@ -35,6 +60,10 @@ router.get("/:name", async (req, res) => {
     }
     return res.render("product", {
       data: courses.slice((page - 1) * size, page * size),
+      length: courses.length,
+      main: req.params.name,
+      sub: null,
+      tag: null,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -55,9 +84,12 @@ router.get("/:name/:sub", async (req, res) => {
         courses = course;
       } else courses.concat(course);
     }
-    console.log(size, page);
     return res.render("product", {
       data: courses.slice((page - 1) * size, page * size),
+      length: courses.length,
+      main: req.params.name,
+      sub: req.params.name,
+      tag: null,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -69,18 +101,23 @@ router.get("/:name/:sub/:tag", async (req, res) => {
     const size = +req.query.limit || 10;
 
     const total = (page - 1) * size;
-    let tag = await Tag.findOne({ name: req.params.tag });
-    let courses = await Course.find({
-      tag: tag._id,
-    })
+    let tag = await Tag.findOne({ name: req.params.tag }).populate({
+      path: "subCat",
+      select: { name: 1, _id: 0 },
+    });
+    let courses = await Course.find()
       .populate("tag")
       .limit(size)
       .skip(total)
       .lean()
       .exec();
-   
+
     return res.render("product", {
       data: courses,
+      length: courses.length,
+      main: req.params.name,
+      sub: req.params.sub,
+      tag: req.params.tag,
     });
   } catch (err) {
     res.status(500).send(err.message);
