@@ -13,6 +13,7 @@ const tagsController = require("./src/controllers/tag.controller");
 const courseData = require("./src/controllers/course.data.controller");
 const instructorController = require("./src/controllers/instructor.controller");
 const searchController = require("./src/controllers/search.controller");
+const courseOneController = require("./src/controllers/courseone.controller")
 
 app.use(express.json());
 let bodyParser = require("body-parser");
@@ -35,8 +36,9 @@ app.use("/tags", tagsController);
 app.use("/coursedata", courseData);
 app.use("/instructor", instructorController);
 app.use("/search", searchController);
+app.use("/courseone", courseOneController);
 
-app.listen(3000, async () => {
+app.listen(3002, async () => {
   await require("./src/configs/dp")();
   console.log("listning on port 3000");
 });
