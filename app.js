@@ -41,7 +41,7 @@ app.use("/comment", commentController);
 app.use("/checkout", (req, res) => res.render("checkout"));
 app.use("/payment", (req, res) => res.render("payment"));
 
-app.listen(3000, async () => {
+app.listen(5000, async () => {
   await require("./src/configs/dp")();
-  console.log("listning on port 3000");
+  console.log("listning on port 5000");
 });

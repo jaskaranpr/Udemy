@@ -224,6 +224,9 @@ section{
 .loged a{
     display:none;
 }
+.user{
+    display:none
+}
 .loged .user{
   background-color:rgb(255, 255, 255);
   color:white;
