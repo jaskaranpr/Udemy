@@ -57,7 +57,7 @@ function shoppingCart(data) {
     Div_for_button.setAttribute("class", "Div_for_button");
     let Button_for_checkout = document.createElement("button");
     Button_for_checkout.setAttribute("class", "Button_for_checkout");
-    Button_for_checkout.innerHTML = `<a href="checkout.html">Checkout</a>`;
+    Button_for_checkout.innerHTML = `<a href="/checkout">Checkout</a>`;
 
     let Promitions_for_checkout = document.createElement("h3");
     Promitions_for_checkout.innerHTML = `Promotions:`;

@@ -12,21 +12,20 @@ router.get("", async (req, res) => {
     const q = req.query.q || false;
     const page = +req.query.page || 1;
     const size = +req.query.limit || 10;
+    const level = req.query.level || false;
     const total = (page - 1) * size;
     let courses;
     let length;
+    let filters = {};
     if (q) {
       const tag = await Tag.findOne({ name: q }).lean().exec();
-      courses = await Course.find({ tag: tag._id })
-        .lean()
-        .limit(size)
-        .skip(total)
-        .exec();
-      length = await Course.find({ tag: tag._id }).count();
-    } else {
-      courses = await Course.find().lean().limit(size).skip(total).exec();
-      length = await Course.count();
+      filters.tag = tag._id;
     }
+    if (level) {
+      filters.level = level;
+    }
+    courses = await Course.find(filters).lean().limit(size).skip(total).exec();
+    length = await Course.find(filters).count();
 
     res.render("product", {
       data: courses,
@@ -43,6 +42,7 @@ router.get("/:name", async (req, res) => {
   try {
     const page = +req.query.page || 1;
     const size = +req.query.limit || 10;
+    const level = req.query.level || false;
 
     const total = (page - 1) * size;
     const main = await Main.findOne({ name: req.params.name }).lean().exec();
@@ -52,7 +52,11 @@ router.get("/:name", async (req, res) => {
     for (let i = 0; i < sub.length; i++) {
       let tag = await Tag.find({ subCat: sub[i]._id });
       for (let j = 0; j < tag.length; j++) {
-        let course = await Course.find({ tag: tag[j]._id }).lean().exec();
+        let filters = { tag: tag[j]._id };
+        if (level) {
+          filters.level = level;
+        }
+        let course = await Course.find(filters).lean().exec();
         if (i == 0 && j == 0) {
           courses = course;
         } else courses.concat(course);
@@ -73,13 +77,20 @@ router.get("/:name/:sub", async (req, res) => {
   try {
     const page = +req.query.page || 1;
     const size = +req.query.limit || 10;
+    const level = req.query.level || false;
 
     const total = (page - 1) * size;
+
     const sub = await Sub.findOne({ name: req.params.sub });
     let courses = [];
     let tags = await Tag.find({ subCat: sub._id });
+
     for (let i = 0; i < tags.length; i++) {
-      let course = await Course.find({ tag: tags[i]._id }).lean().exec();
+      let filters = { tag: tags[i]._id };
+      if (level) {
+        filters.level = level;
+      }
+      let course = await Course.find(filters).lean().exec();
       if (i == 0) {
         courses = course;
       } else courses.concat(course);
@@ -88,7 +99,7 @@ router.get("/:name/:sub", async (req, res) => {
       data: courses.slice((page - 1) * size, page * size),
       length: courses.length,
       main: req.params.name,
-      sub: req.params.name,
+      sub: req.params.sub,
       tag: null,
     });
   } catch (err) {
@@ -99,13 +110,18 @@ router.get("/:name/:sub/:tag", async (req, res) => {
   try {
     const page = +req.query.page || 1;
     const size = +req.query.limit || 10;
+    const level = req.query.level || false;
 
     const total = (page - 1) * size;
     let tag = await Tag.findOne({ name: req.params.tag }).populate({
       path: "subCat",
       select: { name: 1, _id: 0 },
     });
-    let courses = await Course.find()
+    let filters = { tag: tag._id };
+    if (level) {
+      filters.level = level;
+    }
+    let courses = await Course.find(filters)
       .populate("tag")
       .limit(size)
       .skip(total)

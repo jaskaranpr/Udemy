@@ -27,12 +27,18 @@
         </h1>
         <p class="course-title">
             <%if(sub==null){%>
-            <%=main%> relates to <a href="/courses/<%=main%>"><%=main%></a>
-            <%}else if(tag == null){%>
-            <%=sub%> relates to <a href="/courses/<%=main%>"><%=main%></a>
-            <%}else{%>
-            <%=tag%> relates to <a href="/courses/<%=main%>/<%=sub%>"><%=sub%></a>
-            <%}%>
+                <%=main%> relates to <a href="/courses/<%=main%>">
+                        <%=main%>
+                    </a>
+                    <%}else if(tag==null){%>
+                        <%=sub%> relates to <a href="/courses/<%=main%>">
+                                <%=main%>
+                            </a>
+                            <%}else{%>
+                                <%=tag%> relates to <a href="/courses/<%=main%>/<%=sub%>">
+                                        <%=sub%>
+                                    </a>
+                                    <%}%>
         </p>
         <span class="learners">12,345 learners</span>
     </div>
@@ -201,13 +207,11 @@
 
 <script type="module">
     import navbar from "/components/navbar.js"
-    import timer from "/scripts/timer.js"
     import cousreList from "/components/courseList.js"
     import footer from "/components/footer.js"
 
     document.querySelector("nav").innerHTML = navbar()
     document.querySelector("footer").innerHTML = footer()
-    timer(document.querySelector(".timer"))
     document.querySelector(".remove-sale").addEventListener("click", () => {
         document.querySelector(".sale-nav").style.display = "none"
     })
@@ -257,11 +261,14 @@
     let login = JSON.parse(localStorage.getItem("token"))
     if (login) {
         document.querySelector(".sign-log").classList.add("loged")
-        document.querySelector(".user").textContent = login.user[0]
     }
 
 </script>
+<script type="module" src="/scripts/search.js"></script>
+<script type="module" src="/scripts/cat-menu.js"></script>
+<script type="module" src="/scripts/product.js"></script>
 <script>
+
     function fil(val, cat) {
         let filter = { val: val, cat: cat }
         localStorage.setItem("filter", JSON.stringify(filter))
@@ -285,7 +292,64 @@
     })
 </script>
 
-<script type="module" src="/scripts/search.js"></script>
-<script type="module" src="/scripts/cat-menu.js"></script>
-<script type="module" src="/scripts/product.js"></script>
-<script type="module" src="/scripts/fil-cat.js"></script>
+<script>
+    let catData = JSON.parse(localStorage.getItem("catData"));
+    let subCat = document.querySelector(".sub-cat-fil");
+    let topicCat = document.querySelector(".topic-cat-fil");
+    let main = "<%=main%>"
+    let subl = "<%=sub%>"
+    let tag = "<%=tag%>"
+    catData.map((sub) => {
+        let p = document.createElement("p");
+        p.classList.add("sub-cat-p");
+        if (subl == sub.cat1.toLowerCase()) {
+            p.innerHTML = `<input type="checkbox" checked="true"> ${sub.cat1}`;
+        } else p.innerHTML = `<input type="checkbox"> ${sub.cat1}`;
+        subCat.append(p);
+        p.addEventListener("click", () => {
+            location.href = `/courses/${main}/${sub.cat1.toLowerCase()}`
+        });
+        if (sub.sub1) {
+            sub.sub1.map((cat) => {
+                let p = document.createElement("p");
+                if (tag == cat.toLowerCase())
+                    p.innerHTML = `<input type="checkbox" checked="true"> ${cat}`;
+                else
+                    p.innerHTML = `<input type="checkbox" > ${cat}`;
+                if (p.innerHTML !== "") {
+                    topicCat.append(p);
+                }
+                p.addEventListener("click", () => {
+                    location.href = `/courses/${main}/${sub.cat1.toLowerCase()}/${cat.toLowerCase()}`
+                });
+            });
+        }
+    });
+    let fils = document.getElementsByClassName("fil-p");
+
+    for (let i = 0; i < fils.length; i++) {
+        fils[i].addEventListener("click", () => {
+            let [v, c] = fils[i].childNodes[1].value.split(",");
+            if (c == "level") {
+                if (v == "all-levels") {
+                    v = v.replace("-", " ")
+                }
+                console.log(subl)
+                if (subl == "") {
+                    if (main == "courses") {
+                        location.href = `/courses?level=${v}`
+                    } else {
+                        location.href = `/courses/${main}?level=${v}`
+                    }
+                } else if (tag == "") {
+                    location.href = `/courses/${main}/${subl}?level=${v}`
+                } else {
+                    location.href = `/courses/${main}/${subl}/${tag}?level=${v}`
+                }
+            } else if (v == "free") {
+                let cat = JSON.parse(localStorage.getItem("cat")) + " for " + v;
+                location.href = "/courses"
+            }
+        });
+    }
+</script>

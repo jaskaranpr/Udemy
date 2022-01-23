@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <footer style=" margin-top:100px; position:relative; background-color: black; color:white !important;">
 
@@ -49,10 +49,8 @@
 <script type="module">
     import navbar from "./components/navbar.js"
     import footer from "./components/footer.js"
-    import timer from "./scripts/timer.js"
     document.querySelector("nav").innerHTML = navbar()
     document.querySelector("footer").innerHTML = footer()
-    timer(document.querySelector(".timer"))
     document.querySelector(".remove-sale").addEventListener("click", () => {
         document.querySelector(".sale-nav").style.display = "none"
     })
@@ -90,7 +88,6 @@
     let login = JSON.parse(localStorage.getItem("token"))
     if (login) {
         document.querySelector(".sign-log").classList.add("loged")
-        document.querySelector(".user").textContent = login.user[0]
     }
 </script>
 <script src="scripts/cart.js"></script>

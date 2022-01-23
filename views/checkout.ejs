@@ -57,12 +57,6 @@
       <span class="card_name">New Payment Card</span>
       <div class="img_div">
         <img class="card_images" src="https://www.udemy.com/staticx/udemy/images/v9/card-mastercard.svg" /></a>
-        <!-- <img
-            class="card_images"
-             src="" /><img class="card_images" src="https://www.udemy.com/staticx/udemy/images/v9/card-visa.svg" /><img
-            class="card_images"
-            src=""
-        /> -->
       </div>
     </div>
     <div class="card_option">
@@ -153,13 +147,13 @@
       <span style="color: rgb(45, 45, 226); font-weight: 700">Terms of Service</span>.
     </p>
     <button class="btn">
-      <a href="payment.html">Complete Payment</a> </button>
+      <a href="/payment">Complete Payment</a> </button>
   </div>
 </body>
 
 </html>
 <script>
-  let cart = JSON.parse(localStorage.getItem("courseCart")).length || 0;
+  let cart = JSON.parse(localStorage.getItem("countCart")).length || 0;
   let total = 525 * cart
   document.querySelector(".summary-price").textContent = total
   let discounts = total - (30 / 100 * total)

@@ -440,20 +440,7 @@
 
 </html>
 <script type="module">
-    // let n = "<%=name.length%>"
-    // let arr = []
-    // "<% name.forEach((item,i)=>{%>"
-    // arr.push({})
-    // arr["<%=i%>"].name = "<%=item.name%>"
-    // arr["<%=i%>"].price = "<%=item.price%>"
-    // arr["<%=i%>"].rate = "<%=item.rate%>"
-    // "<%})%>"
-    // console.log(arr)
-
-
-
     import navbar from "./components/navbar.js"
-    // import timer from "./scripts/timer.js"
     import footer from "./components/footer.js"
     import cousreList from "./components/courseList.js"
     document.querySelector("nav").innerHTML = navbar()
@@ -495,7 +482,6 @@
     let login = JSON.parse(localStorage.getItem("token"))
     if (login) {
         document.querySelector(".sign-log").classList.add("loged")
-        document.querySelector(".user").textContent = login.user[0]
     }
 
 
@@ -507,3 +493,4 @@
 <script type="module" src="scripts/cat-menu.js"></script>
 <script type="module" src="scripts/slide.js"></script>
 <script type="module" src="scripts/data.js"></script>
+<script src="scripts/tags.js"></script>

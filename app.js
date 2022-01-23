@@ -17,6 +17,7 @@ const commentController = require("./src/controllers/comments.controller");
 
 app.use(express.json());
 let bodyParser = require("body-parser");
+const { render } = require("express/lib/response");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -37,6 +38,8 @@ app.use("/coursedata", courseData);
 app.use("/instructor", instructorController);
 app.use("/search", searchController);
 app.use("/comment", commentController);
+app.use("/checkout", (req, res) => res.render("checkout"));
+app.use("/payment", (req, res) => res.render("payment"));
 
 app.listen(3000, async () => {
   await require("./src/configs/dp")();

@@ -6,7 +6,7 @@ const Tag = require("../models/tags.model");
 
 const authenticate = require("../middlewares/authenticate");
 
-router.get("", authenticate, async (req, res) => {
+router.get("", async (req, res) => {
   console.log(req.user);
   try {
     let name = req.query.name;

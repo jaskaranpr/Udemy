@@ -95,4 +95,5 @@
 <script>
     let tag = JSON.parse(localStorage.getItem("create-course"))
     document.querySelector("#tag").value = tag.tag || "61e924bc9ad44ed5f41a26c0"
+    document.querySelector(".back").onclick = () => location.href = "/instructor/create/4"
 </script>
