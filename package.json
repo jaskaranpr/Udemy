@@ -4,8 +4,7 @@
   "description": "This example is so cool.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node app.js"
   },
   "keywords": [
     "example",
@@ -20,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/jaskaranpr/Udemy/issues"
   },
-  "homepage": "https://github.com/jaskaranpr/Udemy#readme",
+  "homepage": ".",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^14.2.0",
