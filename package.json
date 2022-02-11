@@ -1,17 +1,21 @@
 {
   "name": "udemy5",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "This example is so cool.",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
-     "dev": "nodemon app.js"
+    "dev": "nodemon app.js"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaskaranpr/Udemy.git"
   },
-  "author": "",
+  "author": "Jaskaran Singh",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jaskaranpr/Udemy/issues"
@@ -27,5 +31,8 @@
     "express": "^4.17.2",
     "fs": "0.0.1-security",
     "mongoose": "^6.1.7"
+  },
+  "engines": {
+    "node": "14.17.0"
   }
 }

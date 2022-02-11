@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+// It is important to load TextEncoder like this using Cu.import()
+// You cannot load it by just |Cu.import("resource://gre/modules/osfile.jsm");|
 
 const { register, login } = require("./src/controllers/auth.controller");
 const mainController = require("./src/controllers/main.controller");
@@ -17,7 +19,6 @@ const commentController = require("./src/controllers/comments.controller");
 
 app.use(express.json());
 let bodyParser = require("body-parser");
-const { render } = require("express/lib/response");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

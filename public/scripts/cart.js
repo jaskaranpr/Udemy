@@ -11,8 +11,6 @@ async function length() {
     });
     let data = await res.json();
     shoppingCart(data);
-  } else {
-    alert("error");
   }
 }
 length();
